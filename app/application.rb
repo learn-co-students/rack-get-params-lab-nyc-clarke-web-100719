@@ -4,8 +4,8 @@ class Application
   @@cart = []
 
   def call(env)
-    resp = Rack::Response.new
-    req = Rack::Request.new(env)
+    @resp = Rack::Response.new
+    @req = Rack::Request.new(env)
 
     if req.path.match(/items/)
       @@items.each do |item|
@@ -35,9 +35,9 @@ class Application
   def add_item(added_item)
     if @@items.include?(added_item)
         @@cart << added_item
-        return "added #{added_item}"
+        resp.write "added #{added_item}"
       else 
-        return "We don't have that item"
+        resp.write "We don't have that item"
       end
   end
 
