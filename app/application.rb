@@ -1,6 +1,6 @@
 class Application
 
-  @@items = []
+  @@items = ["Apples", "Oranges", "Pears"]
   @@cart = []
 
   def call(env)
@@ -11,7 +11,7 @@ class Application
       @@items.each do |item|
         resp.write "#{item}\n"
       end
-    elsif req.path.match(/search/)
+    elsif req.path.match(/search/) #works when path is /search?q=Apples
       search_term = req.params["q"]
       resp.write handle_search(search_term)
     elsif req.path.match (/cart/)
